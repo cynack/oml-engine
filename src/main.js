@@ -5,6 +5,7 @@ import * as THREE from 'three'
 class OML {
   constructor(container, OML) {
     this.skyboxSize = 100
+    this.container = container
 
     this.renderer = new THREE.WebGLRenderer({antialias: true})
     this.renderer.setSize(container.clientWidth, container.clientHeight)
@@ -56,15 +57,23 @@ class OML {
       const skyMesh = new THREE.Mesh(new THREE.BoxGeometry(this.skyboxSize, this.skyboxSize, this.skyboxSize, 1, 1, 1), skyBoxMaterial)
       this.scene.add(skyMesh)
     })
+
+    window.addEventListener('resize', ()=>{this.onResize.call(this)}, false)
     this.renderer.animate(()=>{this._animate.call(this)})
+
     if(OML) {
       this.viewOML(OML)
     }
   }
 
 
+  onResize() {
+    this.camera.aspect = this.container.clientWidth/this.container.clientHeight
+    this.camera.updateProjectionMatrix()
+    this.renderer.setSize(this.container.clientWidth, this.container.clientHeight)
+  }
+
   viewOML(OML) {
-    throw new Error('Not implemented exception.')
   }
 
 
