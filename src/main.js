@@ -1,6 +1,12 @@
 /*global window*/
 import OMLElement from './OMLElement'
 import * as THREE from 'three'
+import skybox_east from './img/skybox_east.jpg'
+import skybox_west from './img/skybox_west.jpg'
+import skybox_up from './img/skybox_up.jpg'
+import skybox_down from './img/skybox_down.jpg'
+import skybox_north from './img/skybox_north.jpg'
+import skybox_south from './img/skybox_south.jpg'
 
 class OML {
   constructor(container, OML) {
@@ -36,14 +42,7 @@ class OML {
     this._setLight([60, 30, 0])
 
     const cubeLoader = new THREE.CubeTextureLoader()
-    cubeLoader.load([
-      'img/skybox_east.jpg',
-      'img/skybox_west.jpg',
-      'img/skybox_up.jpg',
-      'img/skybox_down.jpg',
-      'img/skybox_north.jpg',
-      'img/skybox_south.jpg'
-    ], (cubeTexture)=>{
+    cubeLoader.load([skybox_east, skybox_west, skybox_up, skybox_down, skybox_north, skybox_south], (cubeTexture)=>{
       const cubeShader = THREE.ShaderLib[ 'cube' ]
       cubeShader.uniforms[ 'tCube' ].value = cubeTexture
       cubeShader.uniforms[ 'tFlip' ].value = 1
