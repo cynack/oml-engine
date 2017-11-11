@@ -1,0 +1,19 @@
+{
+  "env": {
+    "node" : true,
+    "es6" : true
+  },
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "extends": "eslint:recommended",
+  "rules": {
+    "semi": ["warn", "never"],
+    "quotes": ["warn", "single"],
+    "space-before-blocks": ["warn", { "functions": "always" }],
+    "no-console": ["warn", { "allow": ["warn", "error", "info"] }],
+    "comma-spacing": ["warn", {"before": false, "after": true}],
+    "indent": ["warn", 2, {"SwitchCase": 1}],
+    "no-case-declarations": ["warn"]
+  }
+}
