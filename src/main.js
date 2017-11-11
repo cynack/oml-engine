@@ -3,7 +3,7 @@ import OMLElement from './OMLElement'
 import * as THREE from 'three'
 
 class OML {
-  constructor(container, sOML) {
+  constructor(container, OML) {
     this.skyboxSize = 100
 
     this.renderer = new THREE.WebGLRenderer({antialias: true})
@@ -57,11 +57,13 @@ class OML {
       this.scene.add(skyMesh)
     })
     this.renderer.animate(()=>{this._animate.call(this)})
-    if(sOML)this.viewOML(sOML)
+    if(OML) {
+      this.viewOML(OML)
+    }
   }
 
 
-  viewOML(sOML) {
+  viewOML(OML) {
     throw new Error('Not implemented exception.')
   }
 
