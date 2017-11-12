@@ -79,13 +79,13 @@ class OML {
 
 
   _setLight(params) {
-    var lightVector = new THREE.Vector3(0, 0, 1)
+    const lightVector = new THREE.Vector3(0, 0, 1)
     if(params.length == 3) {
-      var eu = new THREE.Euler(-Math.PI*params[0]/180, -Math.PI*params[1]/180, Math.PI*params[2]/180, 'XYZ')
+      const eu = new THREE.Euler(-Math.PI*params[0]/180, -Math.PI*params[1]/180, Math.PI*params[2]/180, 'XYZ')
       lightVector.applyEuler(eu)
     }
     if(params.length==4) {
-      var qt = new THREE.Quaternion(params[0], params[1], -params[2], Math.PI*params[3]/180)
+      const qt = new THREE.Quaternion(params[0], params[1], -params[2], Math.PI*params[3]/180)
       lightVector.applyQuaternion(qt)
     }
     this.light.position.set(lightVector.x, lightVector.y, lightVector.z)
