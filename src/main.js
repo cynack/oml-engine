@@ -1,5 +1,6 @@
 /*global window*/
 import * as THREE from 'three'
+import WebVR from './WebVR'
 import OMLParser from './OMLParser'
 import skybox_east from './img/skybox_east.jpg'
 import skybox_west from './img/skybox_west.jpg'
@@ -18,6 +19,16 @@ class OML {
     this.renderer.setPixelRatio(window.devicePixelRatio)
     this.renderer.vr.enabled = true
     this.renderer.shadowMap.enabled = true
+    this.webvr = new WebVR(this.renderer, (result)=>{
+      if(result) {
+        let webVRRequestAnimateResult = this.webvr.requestAnimationFrame(()=>{this._animate.call(this, true)})
+        if(!webVRRequestAnimateResult) {
+          this.renderer.animate(()=>{this._animate.call(this)})
+        }
+      }else {
+        this.renderer.animate(()=>{this._animate.call(this)})
+      }
+    })
     container.appendChild(this.renderer.domElement)
     container.style.overflow = 'hidden'
     this.scene = new THREE.Scene()
@@ -59,7 +70,6 @@ class OML {
     })
 
     window.addEventListener('resize', ()=>{this.onResize.call(this)}, false)
-    this.renderer.animate(()=>{this._animate.call(this)})
 
     this.parser = new OMLParser(this.scene)
     if(OML) {
@@ -72,6 +82,10 @@ class OML {
     this.camera.aspect = this.container.clientWidth/this.container.clientHeight
     this.camera.updateProjectionMatrix()
     this.renderer.setSize(this.container.clientWidth, this.container.clientHeight)
+  }
+
+  enterVR() {
+    this.webvr.enterVR()
   }
 
   setOML(OML) {
@@ -94,8 +108,10 @@ class OML {
   }
 
 
-  _animate() {
+  _animate(callRequestAnimationFrame) {
+    console.log('new')
     this.renderer.render(this.scene, this.camera)
+    if(callRequestAnimationFrame)this.webvr.requestAnimationFrame(()=>{this._animate.call(this, true)})
   }
 }
 
