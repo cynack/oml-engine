@@ -19,6 +19,7 @@ class OML {
     this.renderer.vr.enabled = true
     this.renderer.shadowMap.enabled = true
     container.appendChild(this.renderer.domElement)
+    container.style.overflow = 'hidden'
     this.scene = new THREE.Scene()
     this.camera = new THREE.PerspectiveCamera(75, container.clientWidth/container.clientHeight, 0.1, 1000)
     this.cameraCtl = new THREE.Group()
