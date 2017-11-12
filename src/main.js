@@ -109,7 +109,6 @@ class OML {
 
 
   _animate(callRequestAnimationFrame) {
-    console.log('new')
     this.renderer.render(this.scene, this.camera)
     if(callRequestAnimationFrame)this.webvr.requestAnimationFrame(()=>{this._animate.call(this, true)})
   }
