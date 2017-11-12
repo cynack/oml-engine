@@ -4,7 +4,10 @@ export default class OMLParser {
   constructor(scene) {
     this.scene = scene
   }
-  viewOML(OML) {
+  setOML(OML) {
+    if(this.elements) {
+      this.elements.destroy()
+    }
     switch(typeof(OML)) {
       case 'string': {
         OML = JSON.parse(OML)
@@ -17,6 +20,6 @@ export default class OMLParser {
         throw new TypeError()
       }
     }
-    new OMLElement(OML, this.scene)
+    this.elements = new OMLElement(OML, this.scene)
   }
 }

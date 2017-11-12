@@ -62,7 +62,7 @@ class OML {
 
     this.parser = new OMLParser(this.scene)
     if(OML) {
-      this.viewOML(OML)
+      this.setOML(OML)
     }
   }
 
@@ -73,7 +73,7 @@ class OML {
     this.renderer.setSize(this.container.clientWidth, this.container.clientHeight)
   }
 
-  viewOML(OML) {
+  setOML(OML) {
     this.parser.setOML(OML)
   }
 
