@@ -1,6 +1,6 @@
 /*global window*/
-import OMLElement from './OMLElement'
 import * as THREE from 'three'
+import OMLParser from './OMLParser'
 import skybox_east from './img/skybox_east.jpg'
 import skybox_west from './img/skybox_west.jpg'
 import skybox_up from './img/skybox_up.jpg'
@@ -60,6 +60,7 @@ class OML {
     window.addEventListener('resize', ()=>{this.onResize.call(this)}, false)
     this.renderer.animate(()=>{this._animate.call(this)})
 
+    this.parser = new OMLParser(this.scene)
     if(OML) {
       this.viewOML(OML)
     }
@@ -73,6 +74,7 @@ class OML {
   }
 
   viewOML(OML) {
+    this.parser.setOML(OML)
   }
 
 
