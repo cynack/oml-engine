@@ -15,6 +15,7 @@
     "comma-spacing": ["warn", {"before": false, "after": true}],
     "indent": ["warn", 2, {"SwitchCase": 1}],
     "no-case-declarations": ["warn"],
-    "no-var": ["error"]
+    "no-var": ["error"],
+    "linebreak-style": ["error", "unix"]
   }
 }
