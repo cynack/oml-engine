@@ -1,4 +1,3 @@
-/*global window*/
 import * as THREE from 'three'
 import WebVR from './WebVR'
 import OMLParser from './OMLParser'

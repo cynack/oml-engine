@@ -1,4 +1,3 @@
-/*global window navigator*/
 export default class WebVR {
   constructor(renderer, callback) {
     this.renderer = renderer
