@@ -20,7 +20,10 @@
   <div id="buttons">
     <button onclick="omlView.enterVR()">Enter VR</button>
   </div>
-  <script src="./webvr-polyfill.min.js"></script>
+  <script src='https://cdn.jsdelivr.net/npm/webvr-polyfill@latest/build/webvr-polyfill.js'></script>
+  <script>
+    new WebVRPolyfill()
+  </script>
   <script src="../dist/oml.js"></script>
   <script>
 var sOML = `{
