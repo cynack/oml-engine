@@ -19,15 +19,15 @@ export default {
     include: 'src/**',
   },
   plugins: [
-    babel({
-      exclude: 'node_modules/**',
-    }),
     resolve(),
+    commonjs(),
     url({
       limit: 100 * 1024,
       include: ['**/*.jpg']
     }),
-    commonjs(),
+    babel({
+      exclude: 'node_modules/**',
+    }),
     cleanup()
   ]
 }
