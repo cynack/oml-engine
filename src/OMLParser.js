@@ -1,12 +1,12 @@
-import OMLElement from './OMLElement'
+import createElement from './Elements/createElement'
 
 export default class OMLParser {
   constructor(scene) {
     this.scene = scene
   }
   setOML(OML) {
-    if(this.elements) {
-      this.elements.destroy()
+    if(this.element) {
+      this.element.destroy()
     }
     switch(typeof(OML)) {
       case 'string': {
@@ -20,6 +20,7 @@ export default class OMLParser {
         throw new TypeError()
       }
     }
-    this.elements = new OMLElement(OML, this.scene)
+    this.element = createElement(OML)
+    this.scene.add(this.element.obj3d)
   }
 }

@@ -32,12 +32,13 @@ class OML {
     container.style.overflow = 'hidden'
     this.scene = new THREE.Scene()
     this.camera = new THREE.PerspectiveCamera(75, container.clientWidth/container.clientHeight, 0.1, 1000)
+    this.camera.position.set(0, 0, 10)
     this.cameraCtl = new THREE.Group()
-    this.cameraCtl.quaternion.set(0, 0, 0, 1)
     this.cameraCtl.add(this.camera)
     this.scene.add(this.cameraCtl)
 
     this.light = new THREE.DirectionalLight(0xffffff, 0.7)
+    /*
     this.light.castShadow = true
     this.light.shadow.camera.near = 0
     this.light.shadow.camera.far = 128
@@ -47,6 +48,7 @@ class OML {
     this.light.shadow.camera.left = -64
     this.light.shadow.mapSize.width = 8192
     this.light.shadow.mapSize.height = 8192
+    */
     this.scene.add(this.light)
     this.ambientLight = new THREE.AmbientLight(0xffffff, 0.3)
     this.scene.add(this.ambientLight)
