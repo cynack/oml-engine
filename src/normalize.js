@@ -1,3 +1,8 @@
+/**
+ * normalizeRot
+ * @param {Array.<(string|number)>} rot
+ * @returns {Array.<number>}
+ */
 export function normalizeRot(rot) {
   if(Array.isArray(rot)) {
     if(rot.length < 4) {
@@ -19,6 +24,11 @@ export function normalizeRot(rot) {
   }
 }
 
+/**
+ * normalizeRotNumber
+ * @param {(string|number)} rot
+ * @returns {number}
+ */
 function normalizeRotNumber(rot) {
   if(typeof(rot) == 'number') {
     return (rot/180*Math.PI)
@@ -30,6 +40,11 @@ function normalizeRotNumber(rot) {
   }
 }
 
+/**
+ * normalizeScale
+ * @param {Array.<(string|number)>} scale
+ * @returns {Array.<number>}
+ */
 export function normalizeScale(scale) {
   if(Array.isArray(scale)) {
     return [
@@ -42,6 +57,11 @@ export function normalizeScale(scale) {
   }
 }
 
+/**
+ * normalizeScaleNumber
+ * @param {(string|number)} scale
+ * @returns {number}
+ */
 function normalizeScaleNumber(scale) {
   if(typeof(scale) == 'number') {
     return scale
@@ -52,6 +72,11 @@ function normalizeScaleNumber(scale) {
   }
 }
 
+/**
+ * normalizeScale
+ * @param {Array.<(string|number)>} pos
+ * @returns {Array.<number>}
+ */
 export function normalizePos(pos) {
   if(Array.isArray(pos)) {
     return [
@@ -64,6 +89,11 @@ export function normalizePos(pos) {
   }
 }
 
+/**
+ * normalizePosNumber
+ * @param {(string|number)} pos
+ * @returns {number}
+ */
 function normalizePosNumber(pos) {
   if(typeof(pos) == 'number') {
     return pos
@@ -74,6 +104,12 @@ function normalizePosNumber(pos) {
   }
 }
 
+/**
+ * normalizeSize
+ * @param {Array.<(string|number)>} size
+ * @param {number} [length]
+ * @returns {Array.<number>}
+ */
 export function normalizeSize(size, length) {
   if(Array.isArray(size)) {
     const result = []
@@ -88,6 +124,11 @@ export function normalizeSize(size, length) {
   }
 }
 
+/**
+ * normalizePosNumber
+ * @param {(string|number)} size
+ * @returns {number}
+ */
 function normalizeSizeNumber(size) {
   if(typeof(size) == 'number') {
     return size
@@ -98,6 +139,11 @@ function normalizeSizeNumber(size) {
   }
 }
 
+/**
+ * normalizeColor
+ * @param {(string|number)} color
+ * @returns {(string|number)}
+ */
 export function normalizeColor(color) {
   return color
 }

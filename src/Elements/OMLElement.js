@@ -1,7 +1,19 @@
 import * as THREE from 'three'
 import {normalizeRot, normalizeScale, normalizePos, normalizeSize, normalizeColor} from '../normalize'
 
+/**
+ * @class OMLElement
+ * @property {OMLDataObject} OML
+ * @property {Object} property
+ * @property {THREE.Object3D} obj3d
+ */
 export default class OMLElement {
+  /**
+   * @constructor
+   * @param {OMLDataObject} OML
+   * @param {Object} property
+   * @param {number} sizeLength
+   */
   constructor(OML, property, sizeLength) {
     this.OML = OML
     this.property = property
