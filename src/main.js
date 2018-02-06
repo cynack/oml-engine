@@ -32,10 +32,8 @@ class OML {
     container.style.overflow = 'hidden'
     this.scene = new THREE.Scene()
     this.camera = new THREE.PerspectiveCamera(75, container.clientWidth/container.clientHeight, 0.1, 1000)
-    this.camera.position.set(0, 0, 10)
-    this.cameraCtl = new THREE.Group()
-    this.cameraCtl.add(this.camera)
-    this.scene.add(this.cameraCtl)
+    this.camera.position.set(0, 1.7, 1)
+    this.scene.add(this.camera)
 
     this.light = new THREE.DirectionalLight(0xffffff, 0.7)
     /*
