@@ -10,6 +10,8 @@ export default class SphereElement extends OMLElement {
       new THREE.MeshPhongMaterial({color: OML._color})
     )
     cube.rotation.set(-Math.PI/2, 0, 0)
+    cube.castShadow = true
+    cube.receiveShadow = true
     obj.add(cube)
     super._addObj(obj)
   }
