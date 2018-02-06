@@ -26,38 +26,41 @@
   </script>
   <script src="../dist/oml.js"></script>
   <script>
-var sOML = `{
-  "version": "^0.0.1",
-  "group":[{
-    "component":"@halfo",
-    "pos":[0,0,6]
-  },{
-    "component":"@halfo",
-    "pos":[0,3.0253,6],
-    "rot":[0,0,180]
-  }],
-  "define":{
-    "@halfo":{
+    var sOML = {
+      "version": "^0.0.1",
       "group":[{
-        "component":"@cube",
-        "scale":[2,0.5,0.5],
-        "pos":[0.51265,2.7753,0],
-        "color":"#FF0000"
+        "component":"@halfo",
+        "pos":[0,0,6]
       },{
-        "component":"@cube",
-        "scale":[0.5,2,0.5],
-        "pos":[1.26265,2.0253,0],
-        "color":"#FF0000"
-      },{
-        "component":"@cube",
-        "scale":[0.5,1.45,0.5],
-        "pos":[0.813325,0.686325,0],
-        "color":"#FF0000",
-        "rot":[0,0,-45]
-      }]
+        "component":"@halfo",
+        "pos":[0,3.0253,6],
+        "rot":[0,0,180]
+      }, {
+        "component": "@plane",
+        "size": [100,100]
+      }],
+      "define":{
+        "@halfo":{
+          "group":[{
+            "component":"@cube",
+            "scale":[2,0.5,0.5],
+            "pos":[0.51265,2.7753,0],
+            "color":"#FF0000"
+          },{
+            "component":"@cube",
+            "scale":[0.5,2,0.5],
+            "pos":[1.26265,2.0253,0],
+            "color":"#FF0000"
+          },{
+            "component":"@cube",
+            "scale":[0.5,1.45,0.5],
+            "pos":[0.813325,0.686325,0],
+            "color":"#FF0000",
+            "rot":[0,0,-45]
+          }]
+        }
+      }
     }
-  }
-}`
     var omlView = new OML(document.getElementById("oml-view"), sOML)
   </script>
 </body>
