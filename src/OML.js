@@ -8,8 +8,17 @@ import skybox_down from './img/skybox_down.jpg'
 import skybox_north from './img/skybox_north.jpg'
 import skybox_south from './img/skybox_south.jpg'
 
+/**
+ * @class OML
+ */
 class OML {
-  constructor(container, OML) {
+  /**
+   * @constructor
+   * @param {HTMLDivElement} container
+   * @param {OMLData} [OMLData]
+   * @returns {OML}
+   */
+  constructor(container, OMLData) {
     this.skyboxSize = 100
     this.container = container
 
@@ -68,29 +77,35 @@ class OML {
       this.scene.add(skyMesh)
     })
 
-    window.addEventListener('resize', ()=>{this.onResize.call(this)}, false)
+    window.addEventListener('resize', ()=>{this._onResize.call(this)}, false)
 
     this.parser = new OMLParser(this.scene)
-    if(OML) {
-      this.setOML(OML)
+    if(OMLData) {
+      this.setOML(OMLData)
     }
   }
 
 
-  onResize() {
-    this.camera.aspect = this.container.clientWidth/this.container.clientHeight
-    this.camera.updateProjectionMatrix()
-    this.renderer.setSize(this.container.clientWidth, this.container.clientHeight)
-  }
-
+  /**
+   * enterVR
+   */
   enterVR() {
     this.webvr.enterVR()
   }
 
-  setOML(OML) {
-    this.parser.setOML(OML)
+  /**
+   * setOML
+   * @param {OMLData} OMLData
+   */
+  setOML(OMLData) {
+    this.parser.setOML(OMLData)
   }
 
+  _onResize() {
+    this.camera.aspect = this.container.clientWidth/this.container.clientHeight
+    this.camera.updateProjectionMatrix()
+    this.renderer.setSize(this.container.clientWidth, this.container.clientHeight)
+  }
 
   _setLight(params) {
     const lightVector = new THREE.Vector3(0, 0, 1)

@@ -4,6 +4,12 @@ import CylinderElement from './CylinderElement'
 import SphereElement from './SphereElement'
 import PlaneElement from './PlaneElement'
 
+/**
+ * createElement
+ * @param {OMLDataObject} OML
+ * @param {Object} property
+ * @returns {OMLElement}
+ */
 export default function createElement(OML, property={define: {}}) {
   if(OML.group) {
     return new GroupElement(OML, property)

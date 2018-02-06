@@ -1,7 +1,16 @@
 import OMLElement from './OMLElement'
 import * as THREE from 'three'
 
-export default class SphereElement extends OMLElement {
+/**
+ * @class PlaneElement
+ * @extends OMLElement
+ */
+export default class PlaneElement extends OMLElement {
+  /**
+   * @constructor
+   * @param {OMLDataObject} OML
+   * @param {Object} property
+   */
   constructor(OML, property) {
     super(OML, property, 2)
     const obj = new THREE.Group()
