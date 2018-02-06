@@ -1,7 +1,7 @@
 {
   "name": "oml-engine",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "build/OML.js",
   "scripts": {
     "build": "rollup -c",
     "build-min": "rollup -c rollup.config.min.js",
