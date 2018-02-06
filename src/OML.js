@@ -113,4 +113,4 @@ class OML {
   }
 }
 
-window.OML = OML
+export default OML
