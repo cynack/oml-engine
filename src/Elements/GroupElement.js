@@ -1,5 +1,4 @@
 import OMLElement from './OMLElement'
-import createElement from './createElement'
 import * as THREE from 'three'
 
 /**
@@ -12,7 +11,7 @@ export default class GroupElement extends OMLElement {
    * @param {OMLDataObject} OML
    * @param {Object} property
    */
-  constructor(OML, property) {
+  constructor(OML, property, createElement) {
     super(OML, property)
     const group = new THREE.Group()
     this.objs = []
