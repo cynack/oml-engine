@@ -43,7 +43,7 @@ class OML {
     container.style.overflow = 'hidden'
     this.scene = new THREE.Scene()
     this.camera = new THREE.PerspectiveCamera(75, container.clientWidth/container.clientHeight, 0.1, 1000)
-    this.camera.position.set(0, 1.7, 7)
+    this.camera.position.set(0, 0, 0.1)
     this.scene.add(this.camera)
     new orbitControll(this.camera)
 
