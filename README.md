@@ -1,4 +1,5 @@
 # OML-Engine
+[![npm version](https://badge.fury.io/js/oml-engine.svg)](https://badge.fury.io/js/oml-engine)
 
 ## Usage
 
@@ -7,7 +8,7 @@
 Download the [minified script](build/OML.min.js) or [uncompressed script](build/OML.js) and include it in your HTML.  
 
 This code show OML Object into `#oml-view`.  
-You can know More detail about OML from [hear](http://oml.cynack.com/).
+You can see more details about OML from [here](http://oml.cynack.com/).
 
 ```html
 <style>
@@ -56,7 +57,7 @@ You can know More detail about OML from [hear](http://oml.cynack.com/).
 
 ### npm
 
-If you're using a build tool like browserify or webpack, install it via npm.
+If you are using a build tool like browserify or webpack, install it via npm.
 
 ```sh
 $ npm install --save cynack/oml-engine

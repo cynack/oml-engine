@@ -9,13 +9,21 @@
     "watch": "rollup -c -w",
     "lint": "eslint ./"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cynack/oml-engine.git"
+  },
+  "keywords": [
+    "oml",
+    "webvr"
+  ],
   "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-preset-env": "^1.6.1",
     "eslint": "^4.11.0",
-    "rollup": "^0.55.3",
+    "rollup": "^0.55.4",
     "rollup-plugin-babel": "^3.0.3",
     "rollup-plugin-cleanup": "^2.0.0",
     "rollup-plugin-commonjs": "^8.3.0",
@@ -23,5 +31,15 @@
     "rollup-plugin-uglify": "^3.0.0",
     "rollup-plugin-url": "^1.3.0",
     "three": "^0.88.0"
-  }
+  },
+  "description": "[![npm version](https://badge.fury.io/js/oml-engine.svg)](https://badge.fury.io/js/oml-engine)",
+  "bugs": {
+    "url": "https://github.com/cynack/oml-engine/issues"
+  },
+  "homepage": "https://github.com/cynack/oml-engine#readme",
+  "directories": {
+    "example": "examples"
+  },
+  "dependencies": {},
+  "author": "Takanori Hirano <hrn.takanori@gmail.com>"
 }
