@@ -1,4 +1,5 @@
 import createElement from './Elements/createElement'
+import * as THREE from 'three'
 
 export default class OMLParser {
   /**
@@ -7,6 +8,9 @@ export default class OMLParser {
    */
   constructor(scene) {
     this.scene = scene
+    this.obj3d = new THREE.Group()
+    this.obj3d.position.set(0, -1.7, 0)
+    this.scene.add(this.obj3d)
   }
   /**
    * setOML
@@ -29,6 +33,6 @@ export default class OMLParser {
       }
     }
     this.element = createElement(OML)
-    this.scene.add(this.element.obj3d)
+    this.obj3d.add(this.element.obj3d)
   }
 }

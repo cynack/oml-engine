@@ -12,7 +12,7 @@ import PlaneElement from './PlaneElement'
  */
 export default function createElement(OML, property={define: {}}) {
   if(OML.group) {
-    return new GroupElement(OML, property)
+    return new GroupElement(OML, property, createElement)
   }else if(OML.component) {
     if(Object.keys(property.define).indexOf(OML.component)==-1) {
       switch(OML.component) {

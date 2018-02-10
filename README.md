@@ -1,5 +1,5 @@
-# OML-Engine
-[![npm version](https://badge.fury.io/js/oml-engine.svg)](https://badge.fury.io/js/oml-engine)
+# OML-Engine [![npm version](https://badge.fury.io/js/oml-engine.svg)](https://badge.fury.io/js/oml-engine)
+JavaScript OML library
 
 ## Usage
 

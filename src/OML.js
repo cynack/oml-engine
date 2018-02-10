@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import OrbitControls from 'three-orbit-controls'
 import WebVR from './WebVR'
 import OMLParser from './OMLParser'
 import skybox_east from './img/skybox_east.jpg'
@@ -7,6 +8,7 @@ import skybox_up from './img/skybox_up.jpg'
 import skybox_down from './img/skybox_down.jpg'
 import skybox_north from './img/skybox_north.jpg'
 import skybox_south from './img/skybox_south.jpg'
+const orbitControll = new OrbitControls(THREE)
 
 /**
  * @class OML
@@ -41,8 +43,9 @@ class OML {
     container.style.overflow = 'hidden'
     this.scene = new THREE.Scene()
     this.camera = new THREE.PerspectiveCamera(75, container.clientWidth/container.clientHeight, 0.1, 1000)
-    this.camera.position.set(0, 1.7, 1)
+    this.camera.position.set(0, 0, 0.1)
     this.scene.add(this.camera)
+    new orbitControll(this.camera)
 
     this.light = new THREE.DirectionalLight(0xffffff, 0.7)
     /*
