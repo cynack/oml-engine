@@ -33,7 +33,7 @@
     "three": "^0.88.0",
     "three-orbit-controls": "^82.1.0"
   },
-  "description": "[![npm version](https://badge.fury.io/js/oml-engine.svg)](https://badge.fury.io/js/oml-engine)",
+  "description": "JavaScript OML library",
   "bugs": {
     "url": "https://github.com/cynack/oml-engine/issues"
   },
