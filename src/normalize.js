@@ -145,5 +145,11 @@ function normalizeSizeNumber(size) {
  * @returns {(string|number)}
  */
 export function normalizeColor(color) {
-  return color
+  if(typeof(color) == 'number') {
+    return color
+  }else if(typeof(color) == 'string') {
+    return color
+  }else {
+    return 0xffffff
+  }
 }
