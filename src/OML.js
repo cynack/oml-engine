@@ -8,7 +8,7 @@ import skyboxUp from './img/skybox_up.jpg'
 import skyboxDown from './img/skybox_down.jpg'
 import skyboxNorth from './img/skybox_north.jpg'
 import skyboxSouth from './img/skybox_south.jpg'
-const _OrbitControll = new OrbitControls(THREE)
+const _OrbitControls = new OrbitControls(THREE)
 
 /**
  * @class OML
@@ -46,7 +46,7 @@ class OML {
     this.camera.position.set(0, 0, 0.1)
     this.scene.add(this.camera)
     // eslint-disable-next-line no-new
-    new _OrbitControll(this.camera)
+    new _OrbitControls(this.camera, this.renderer.domElement)
 
     this.light = new THREE.DirectionalLight(0xffffff, 0.7)
     /*
