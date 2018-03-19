@@ -7,7 +7,8 @@
     "build-min": "rollup -c rollup.config.min.js",
     "build-all": "npm run build && npm run build-min",
     "watch": "rollup -c -w",
-    "lint": "eslint ./"
+    "lint": "eslint ./",
+    "version": "npm run build-all && git add -f build/OML.js && git add -f build/OML.min.js"
   },
   "repository": {
     "type": "git",
