@@ -17,7 +17,6 @@ class OML {
   /**
    * @constructor
    * @param {HTMLDivElement} container
-   * @param {OMLData} [OMLData]
    * @returns {OML}
    */
   constructor (container, OMLData) {
@@ -29,21 +28,15 @@ class OML {
     this.renderer.setPixelRatio(window.devicePixelRatio)
     this.renderer.vr.enabled = true
     this.renderer.shadowMap.enabled = true
-    this.webvr = new WebVR(this.renderer, (err, result) => {
-      if (err) throw err
-      if (result) {
-        let webVRRequestAnimateResult = this.webvr.requestAnimationFrame(() => {
-          this._animate(this, true)
-        })
-        if (!webVRRequestAnimateResult) {
-          this.renderer.animate(() => {
-            this._animate(this)
-          })
-        }
-      } else {
-        this.renderer.animate(() => {
-          this._animate(this)
-        })
+    this.requestAnimationFrame = (...args) => {
+      window.requestAnimationFrame(...args)
+    }
+    this.webvr = new WebVR(this.renderer)
+    this.VRinitialized = this.webvr.init().then(() => {
+      return this.webvr.getRequestAnimationFrame()
+    }).then((requestAnimationFrame) => {
+      if (requestAnimationFrame) {
+        this.requestAnimationFrame = requestAnimationFrame
       }
     })
     container.appendChild(this.renderer.domElement)
@@ -94,23 +87,34 @@ class OML {
 
     this.parser = new OMLParser(this.scene)
     if (OMLData) {
+      console.warn('Calling constractor with OMLData is deprecated.\nPlease use setOML(OMLData)')
       this.setOML(OMLData)
     }
+    this._animate()
   }
 
   /**
    * enterVR
+   * @returns {Promise.<null>}
    */
   enterVR () {
-    this.webvr.enterVR()
+    return this.VRinitialized.then(() => {
+      return this.webvr.enterVR()
+    })
   }
 
   /**
    * setOML
    * @param {OMLData} OMLData
+   * @returns {Promise.<null>}
    */
   setOML (OMLData) {
-    this.parser.setOML(OMLData)
+    try {
+      this.parser.setOML(OMLData)
+      return Promise.resolve()
+    } catch (e) {
+      return Promise.reject(e)
+    }
   }
 
   _onResize () {
@@ -133,13 +137,11 @@ class OML {
     this.ambientLight.position.set(lightVector.x, lightVector.y, lightVector.z)
   }
 
-  _animate (callRequestAnimationFrame) {
+  _animate () {
     this.renderer.render(this.scene, this.camera)
-    if (callRequestAnimationFrame) {
-      this.webvr.requestAnimationFrame(() => {
-        this._animate(this, true)
-      })
-    }
+    this.requestAnimationFrame(() => {
+      this._animate()
+    })
   }
 }
 
