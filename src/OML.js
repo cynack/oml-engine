@@ -117,6 +117,22 @@ class OML {
     }
   }
 
+  /**
+   * @returns {Promise.<null>}
+   */
+  getVRDevices () {
+    return this.VRinitialized.then(() => {
+      return Promise.resolve(this.webvr.displays)
+    })
+  }
+
+  /**
+   * @param {number} index
+   */
+  setVRDevice (index) {
+    this.webvr.setDevice(index)
+  }
+
   _onResize () {
     this.camera.aspect = this.container.clientWidth / this.container.clientHeight
     this.camera.updateProjectionMatrix()
