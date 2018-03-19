@@ -16,7 +16,7 @@ export default {
     banner: banner
   },
   watch: {
-    include: 'src/**',
+    include: 'src/**'
   },
   plugins: [
     resolve(),
@@ -26,7 +26,7 @@ export default {
       include: ['**/*.jpg']
     }),
     babel({
-      exclude: 'node_modules/**',
+      exclude: 'node_modules/**'
     }),
     cleanup()
   ]

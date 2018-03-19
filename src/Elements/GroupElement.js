@@ -11,13 +11,13 @@ export default class GroupElement extends OMLElement {
    * @param {OMLDataObject} OML
    * @param {Object} property
    */
-  constructor(OML, property, createElement) {
+  constructor (OML, property, createElement) {
     super(OML, property)
     const group = new THREE.Group()
     this.objs = []
     super._addObj(group)
 
-    for(let childOML of OML.group) {
+    for (let childOML of OML.group) {
       const element = createElement(childOML, {
         define: this.property.define,
         version: this.property.version
@@ -26,8 +26,8 @@ export default class GroupElement extends OMLElement {
       group.add(element.obj3d)
     }
   }
-  destroy() {
+  destroy () {
     super.destroy()
-    this.objs.forEach((obj)=>obj.destroy())
+    this.objs.forEach((obj) => obj.destroy())
   }
 }

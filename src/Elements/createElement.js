@@ -10,12 +10,12 @@ import PlaneElement from './PlaneElement'
  * @param {Object} property
  * @returns {OMLElement}
  */
-export default function createElement(OML, property={define: {}}) {
-  if(OML.group) {
+export default function createElement (OML, property = {define: {}}) {
+  if (OML.group) {
     return new GroupElement(OML, property, createElement)
-  }else if(OML.component) {
-    if(Object.keys(property.define).indexOf(OML.component)==-1) {
-      switch(OML.component) {
+  } else if (OML.component) {
+    if (Object.keys(property.define).indexOf(OML.component) === -1) {
+      switch (OML.component) {
         case '@cube': {
           return new CubeElement(OML, property)
         }
@@ -38,13 +38,12 @@ export default function createElement(OML, property={define: {}}) {
         }
         case '@light': {
           console.error(new Error('not implemented'))
-          return
         }
       }
-    }else {
+    } else {
       const _OML = Object.assign({}, property.define[OML.component])
-      for(let key in OML) {
-        if(key!=OML.component) {
+      for (let key in OML) {
+        if (key !== OML.component) {
           _OML[key] = OML[key]
         }
       }
