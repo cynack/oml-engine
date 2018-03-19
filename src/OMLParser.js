@@ -6,7 +6,7 @@ export default class OMLParser {
    * @constructor
    * @param {THREE.Scene} scene
    */
-  constructor(scene) {
+  constructor (scene) {
     this.scene = scene
     this.obj3d = new THREE.Group()
     this.obj3d.position.set(0, -1.7, 0)
@@ -16,11 +16,11 @@ export default class OMLParser {
    * setOML
    * @param {OMLData} OML
    */
-  setOML(OML) {
-    if(this.element) {
+  setOML (OML) {
+    if (this.element) {
       this.element.destroy()
     }
-    switch(typeof(OML)) {
+    switch (typeof (OML)) {
       case 'string': {
         OML = JSON.parse(OML)
         break

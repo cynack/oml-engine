@@ -1,25 +1,11 @@
 {
   "env": {
     "browser": true,
-    "node" : true,
-    "mocha": true,
     "es6" : true
   },
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module"
   },
-  "extends": "eslint:recommended",
-  "rules": {
-    "semi": ["warn", "never"],
-    "quotes": ["warn", "single"],
-    "space-before-blocks": ["warn", { "functions": "always" }],
-    "no-console": ["warn", {"allow": ["warn", "error", "info"]}],
-    "comma-spacing": ["warn", {"before": false, "after": true}],
-    "indent": ["warn", 2, {"SwitchCase": 1}],
-    "no-case-declarations": ["warn"],
-    "no-var": ["error"],
-    "linebreak-style": ["error", "unix"],
-    "arrow-parens": ["error"]
-  }
+  "extends": "standard"
 }

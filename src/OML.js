@@ -2,13 +2,13 @@ import * as THREE from 'three'
 import OrbitControls from 'three-orbit-controls'
 import WebVR from './WebVR'
 import OMLParser from './OMLParser'
-import skybox_east from './img/skybox_east.jpg'
-import skybox_west from './img/skybox_west.jpg'
-import skybox_up from './img/skybox_up.jpg'
-import skybox_down from './img/skybox_down.jpg'
-import skybox_north from './img/skybox_north.jpg'
-import skybox_south from './img/skybox_south.jpg'
-const orbitControll = new OrbitControls(THREE)
+import skyboxEast from './img/skybox_east.jpg'
+import skyboxWest from './img/skybox_west.jpg'
+import skyboxUp from './img/skybox_up.jpg'
+import skyboxDown from './img/skybox_down.jpg'
+import skyboxNorth from './img/skybox_north.jpg'
+import skyboxSouth from './img/skybox_south.jpg'
+const _OrbitControll = new OrbitControls(THREE)
 
 /**
  * @class OML
@@ -20,7 +20,7 @@ class OML {
    * @param {OMLData} [OMLData]
    * @returns {OML}
    */
-  constructor(container, OMLData) {
+  constructor (container, OMLData) {
     this.skyboxSize = 100
     this.container = container
 
@@ -29,23 +29,31 @@ class OML {
     this.renderer.setPixelRatio(window.devicePixelRatio)
     this.renderer.vr.enabled = true
     this.renderer.shadowMap.enabled = true
-    this.webvr = new WebVR(this.renderer, (result)=>{
-      if(result) {
-        let webVRRequestAnimateResult = this.webvr.requestAnimationFrame(()=>{this._animate.call(this, true)})
-        if(!webVRRequestAnimateResult) {
-          this.renderer.animate(()=>{this._animate.call(this)})
+    this.webvr = new WebVR(this.renderer, (err, result) => {
+      if (err) throw err
+      if (result) {
+        let webVRRequestAnimateResult = this.webvr.requestAnimationFrame(() => {
+          this._animate(this, true)
+        })
+        if (!webVRRequestAnimateResult) {
+          this.renderer.animate(() => {
+            this._animate(this)
+          })
         }
-      }else {
-        this.renderer.animate(()=>{this._animate.call(this)})
+      } else {
+        this.renderer.animate(() => {
+          this._animate(this)
+        })
       }
     })
     container.appendChild(this.renderer.domElement)
     container.style.overflow = 'hidden'
     this.scene = new THREE.Scene()
-    this.camera = new THREE.PerspectiveCamera(75, container.clientWidth/container.clientHeight, 0.1, 1000)
+    this.camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000)
     this.camera.position.set(0, 0, 0.1)
     this.scene.add(this.camera)
-    new orbitControll(this.camera)
+    // eslint-disable-next-line no-new
+    new _OrbitControll(this.camera)
 
     this.light = new THREE.DirectionalLight(0xffffff, 0.7)
     /*
@@ -65,7 +73,7 @@ class OML {
     this._setLight([60, 30, 0])
 
     const cubeLoader = new THREE.CubeTextureLoader()
-    cubeLoader.load([skybox_east, skybox_west, skybox_up, skybox_down, skybox_north, skybox_south], (cubeTexture)=>{
+    cubeLoader.load([skyboxEast, skyboxWest, skyboxUp, skyboxDown, skyboxNorth, skyboxSouth], (cubeTexture) => {
       const cubeShader = THREE.ShaderLib[ 'cube' ]
       cubeShader.uniforms[ 'tCube' ].value = cubeTexture
       cubeShader.uniforms[ 'tFlip' ].value = 1
@@ -80,19 +88,20 @@ class OML {
       this.scene.add(skyMesh)
     })
 
-    window.addEventListener('resize', ()=>{this._onResize.call(this)}, false)
+    window.addEventListener('resize', () => {
+      this._onResize(this)
+    }, false)
 
     this.parser = new OMLParser(this.scene)
-    if(OMLData) {
+    if (OMLData) {
       this.setOML(OMLData)
     }
   }
 
-
   /**
    * enterVR
    */
-  enterVR() {
+  enterVR () {
     this.webvr.enterVR()
   }
 
@@ -100,34 +109,37 @@ class OML {
    * setOML
    * @param {OMLData} OMLData
    */
-  setOML(OMLData) {
+  setOML (OMLData) {
     this.parser.setOML(OMLData)
   }
 
-  _onResize() {
-    this.camera.aspect = this.container.clientWidth/this.container.clientHeight
+  _onResize () {
+    this.camera.aspect = this.container.clientWidth / this.container.clientHeight
     this.camera.updateProjectionMatrix()
     this.renderer.setSize(this.container.clientWidth, this.container.clientHeight)
   }
 
-  _setLight(params) {
+  _setLight (params) {
     const lightVector = new THREE.Vector3(0, 0, 1)
-    if(params.length == 3) {
-      const eu = new THREE.Euler(-Math.PI*params[0]/180, -Math.PI*params[1]/180, Math.PI*params[2]/180, 'XYZ')
+    if (params.length === 3) {
+      const eu = new THREE.Euler(-Math.PI * params[0] / 180, -Math.PI * params[1] / 180, Math.PI * params[2] / 180, 'XYZ')
       lightVector.applyEuler(eu)
     }
-    if(params.length==4) {
-      const qt = new THREE.Quaternion(params[0], params[1], -params[2], Math.PI*params[3]/180)
+    if (params.length === 4) {
+      const qt = new THREE.Quaternion(params[0], params[1], -params[2], Math.PI * params[3] / 180)
       lightVector.applyQuaternion(qt)
     }
     this.light.position.set(lightVector.x, lightVector.y, lightVector.z)
     this.ambientLight.position.set(lightVector.x, lightVector.y, lightVector.z)
   }
 
-
-  _animate(callRequestAnimationFrame) {
+  _animate (callRequestAnimationFrame) {
     this.renderer.render(this.scene, this.camera)
-    if(callRequestAnimationFrame)this.webvr.requestAnimationFrame(()=>{this._animate.call(this, true)})
+    if (callRequestAnimationFrame) {
+      this.webvr.requestAnimationFrame(() => {
+        this._animate(this, true)
+      })
+    }
   }
 }
 

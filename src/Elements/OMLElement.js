@@ -14,19 +14,19 @@ export default class OMLElement {
    * @param {Object} property
    * @param {number} sizeLength
    */
-  constructor(OML, property, sizeLength) {
+  constructor (OML, property, sizeLength) {
     this.OML = OML
     this.property = property
-    this.obj3d
-    if(!(OML instanceof Object)) {
+    this.obj3d = null
+    if (!(OML instanceof Object)) {
       throw new TypeError()
     }
-    if(OML.define) {
-      for(let name in OML.define) {
+    if (OML.define) {
+      for (let name in OML.define) {
         this.property.define[name] = OML.define[name]
       }
     }
-    if(OML.version) {
+    if (OML.version) {
       this.property.version = OML.version
     }
     OML._rot = normalizeRot(OML.rot)
@@ -35,20 +35,20 @@ export default class OMLElement {
     OML._size = normalizeSize(OML.size, sizeLength)
     OML._color = normalizeColor(OML.color)
   }
-  _addObj(obj) {
+  _addObj (obj) {
     obj.castShadow = true
     obj.receiveShadow = true
-    if(this.OML._rot.length==4) {
+    if (this.OML._rot.length === 4) {
       const qt = new THREE.Quaternion()
       qt.setFromAxisAngle(new THREE.Vector3(this.OML._rot[0], this.OML._rot[1], -this.OML._rot[2]), this.OML._rot[3])
       obj.rotation.setFromQuaternion(qt)
-    }else {
+    } else {
       obj.rotation.set(-this.OML._rot[0], -this.OML._rot[1], this.OML._rot[2])
     }
     obj.scale.set(this.OML._scale[0], this.OML._scale[1], this.OML._scale[2])
     obj.position.set(this.OML._pos[0], this.OML._pos[1], -this.OML._pos[2])
     this.obj3d = obj
   }
-  destroy() {
+  destroy () {
   }
 }
