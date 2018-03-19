@@ -1,54 +1,63 @@
 export default class WebVR {
-  constructor (renderer, callback) {
+  constructor (renderer) {
     this.renderer = renderer
     this.displays = {}
-    this.displays_index = 0
-    this.onVRConnectedCallback = []
-    if (!('getVRDisplays' in window.navigator)) {
-      return callback(null, false)
-    }
-    /* window.addEventListener('vrdisplayconnect', (event)=>{
-    }, false)
-    window.addEventListener('vrdisplaydisconnect', (event)=>{
-    }, false)
-    window.addEventListener('vrdisplaypresentchange', (event)=>{
-    }) */
-    navigator.getVRDisplays().then((displays) => {
-      displays.forEach((display) => {
-        if (this.displays_index === 0) {
-          this.renderer.vr.setDevice(display)
-        }
-        this.displays[this.displays_index] = display
-        this.onVRConnectedCallback.forEach((callback) => {
-          callback(display, this.displays_index)
+    this.displaysLength = 0
+  }
+
+  /**
+   * @returns {Promise.<Object.<number, VRDevice>>}
+   */
+  init () {
+    return new Promise((resolve, reject) => {
+      if (!('getVRDisplays' in window.navigator)) {
+        return reject(new Error('This browser is not support WebVR'))
+      }
+      /* window.addEventListener('vrdisplayconnect', (event)=>{
+      }, false)
+      window.addEventListener('vrdisplaydisconnect', (event)=>{
+      }, false)
+      window.addEventListener('vrdisplaypresentchange', (event)=>{
+      }) */
+      navigator.getVRDisplays().then((displays) => {
+        displays.forEach((display) => {
+          if (this.displaysLength === 0) {
+            this.renderer.vr.setDevice(display)
+          }
+          this.displays[this.displaysLength] = display
+          this.displaysLength++
         })
-        this.displays_index++
+        resolve(this.displays)
       })
-      callback(null, true)
     })
   }
 
-  onVRConnected (callback) {
-    this.onVRConnectedCallback.push(callback)
-  }
-
-  requestAnimationFrame (callback) {
-    let display = this.renderer.vr.getDevice()
-    if (display) {
-      display.requestAnimationFrame(callback)
-      return true
-    } else {
-      return false
-    }
+  /**
+   * @returns {Promise.resolve.<null|Function>}
+   */
+  getRequestAnimationFrame () {
+    return new Promise((resolve, reject) => {
+      const display = this.renderer.vr.getDevice()
+      if (display) {
+        resolve((...args) => {
+          display.requestAnimationFrame(...args)
+        })
+      } else {
+        resolve(null)
+      }
+    })
   }
 
   setDevice (index) {
     this.renderer.vr.setDevice(this.displays[index])
   }
 
+  /**
+   * @returns {Promise.<any>}
+   */
   enterVR () {
     let display = this.renderer.vr.getDevice()
     if (!display) throw new Error('Not found VR Device')
-    display.requestPresent([{source: this.renderer.domElement}])
+    return display.requestPresent([{source: this.renderer.domElement}])
   }
 }
