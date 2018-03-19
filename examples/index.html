@@ -5,60 +5,90 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>OML Engine Example</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-    }
     #oml-view,html,body {
       width: 100%;
       height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    #controlls {
+      position: absolute;
+      bottom: 0;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
     }
   </style>
 </head>
 <body>
   <div id="oml-view"></div>
-  <div id="buttons">
-    <button onclick="omlView.enterVR()">Enter VR</button>
+  <div id="controlls">
+    <select id="devices" onchange="selectChange()">
+    </select>
+    <button id = "enterVR" onclick="enterVR()">Enter VR</button>
   </div>
   <script src='https://cdn.jsdelivr.net/npm/webvr-polyfill@latest/build/webvr-polyfill.js'></script>
   <script>
     new WebVRPolyfill()
   </script>
   <script src="../build/OML.js"></script>
+  <!--<script src="https://cdn.jsdelivr.net/npm/oml-engine@latest/build/OML.min.js"></script>-->
   <script>
-    var sOML = {
-      "version": "^0.0.1",
-      "group":[{
-        "component":"@halfo",
-        "pos":[0,0,6]
+    var oml = {
+      version: '^0.0.1',
+      group: [{
+        component: '@halfo',
+        'pos': [0, 0, 6]
       },{
-        "component":"@halfo",
-        "pos":[0,3.0253,6],
-        "rot":[0,0,180]
+        component: '@halfo',
+        pos: [0, 3.0253, 6],
+        rot: [0, 0, 180]
       }],
-      "define":{
-        "@halfo":{
-          "group":[{
-            "component":"@cube",
-            "scale":[2,0.5,0.5],
-            "pos":[0.51265,2.7753,0],
-            "color":"#FF0000"
+      define: {
+        '@halfo': {
+          group: [{
+            component: '@cube',
+            scale: [2, 0.5, 0.5],
+            pos: [0.51265, 2.7753, 0],
+            color: '#FF0000'
           },{
-            "component":"@cube",
-            "scale":[0.5,2,0.5],
-            "pos":[1.26265,2.0253,0],
-            "color":"#FF0000"
+            component: '@cube',
+            scale: [0.5, 2, 0.5],
+            pos: [1.26265, 2.0253, 0],
+            color: '#FF0000'
           },{
-            "component":"@cube",
-            "scale":[0.5,1.45,0.5],
-            "pos":[0.813325,0.686325,0],
-            "color":"#FF0000",
-            "rot":[0,0,-45]
+            component: '@cube',
+            scale: [0.5,1.45,0.5],
+            pos: [0.813325,0.686325,0],
+            color: '#FF0000',
+            rot: [0,0,-45]
           }]
         }
       }
     }
-    var omlView = new OML(document.getElementById("oml-view"), sOML)
+    var omlView = new OML(document.getElementById("oml-view"))
+    omlView.setOML(oml)
+    var devicesSelect = document.getElementById('devices')
+    var enterVRButton = document.getElementById('enterVR')
+
+    omlView.getVRDevices().then(function (devices) {
+      if (devices.length === 0) {
+        enterVRButton.innerHTML = 'Not found vr devices'
+      }
+      for (var i in devices) {
+        var element = document.createElement('option')
+        element.setAttribute('value', i)
+        element.innerHTML = devices[i].displayName
+        devicesSelect.appendChild(element)
+      }
+    })
+
+    function selectChange () {
+      omlView.setVRDevice(devicesSelect.value)
+    }
+    function enterVR () {
+      omlView.enterVR()
+    }
   </script>
 </body>
 </html>
