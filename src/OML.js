@@ -78,7 +78,7 @@ class OML {
         side: THREE.BackSide
       })
       const skyMesh = new THREE.Mesh(new THREE.BoxGeometry(this.skyboxSize, this.skyboxSize, this.skyboxSize, 1, 1, 1), skyBoxMaterial)
-      this.scene.add(skyMesh)
+      this.camera.add(skyMesh)
     })
 
     window.addEventListener('resize', () => {
