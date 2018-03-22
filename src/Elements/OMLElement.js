@@ -11,44 +11,41 @@ export default class OMLElement {
   /**
    * @constructor
    * @param {OMLDataObject} OML
-   * @param {Object} property
+   * @param {String} version
+   * @param {Object} define
    * @param {number} sizeLength
    */
-  constructor (OML, property, sizeLength) {
-    this.OML = OML
-    this.property = property
-    this.obj3d = null
+  constructor (OML, version, define, sizeLength) {
+    this._obj3d = null
     if (!(OML instanceof Object)) {
       throw new TypeError()
     }
+    this._define = Object.assign({}, define)
     if (OML.define) {
       for (let name in OML.define) {
-        this.property.define[name] = OML.define[name]
+        this._define[name] = OML.define[name]
       }
     }
     if (OML.version) {
-      this.property.version = OML.version
+      this._version = OML.version
     }
-    OML._rot = normalizeRot(OML.rot)
-    OML._scale = normalizeScale(OML.scale)
-    OML._pos = normalizePos(OML.pos)
-    OML._size = normalizeSize(OML.size, sizeLength)
-    OML._color = normalizeColor(OML.color)
+    this.position = normalizePos(OML.pos)
+    this._rotation = normalizeRot(OML.rot)
+    this.scale = normalizeScale(OML.scale)
+    this.size = normalizeSize(OML.size, sizeLength)
+    this.color = normalizeColor(OML.color)
   }
-  _addObj (obj) {
+  _setObj (obj) {
     obj.castShadow = true
     obj.receiveShadow = true
-    if (this.OML._rot.length === 4) {
-      const qt = new THREE.Quaternion()
-      qt.setFromAxisAngle(new THREE.Vector3(this.OML._rot[0], this.OML._rot[1], -this.OML._rot[2]), this.OML._rot[3])
-      obj.rotation.setFromQuaternion(qt)
-    } else {
-      obj.rotation.set(-this.OML._rot[0], -this.OML._rot[1], this.OML._rot[2])
-    }
-    obj.scale.set(this.OML._scale[0], this.OML._scale[1], this.OML._scale[2])
-    obj.position.set(this.OML._pos[0], this.OML._pos[1], -this.OML._pos[2])
+    const qt = new THREE.Quaternion(this._rotation.x, this._rotation.y, this._rotation.z, this._rotation.w)
+    obj.rotation.setFromQuaternion(qt)
+    obj.scale.set(this.scale.x, this.scale.y, this.scale.z)
+    obj.position.set(this.position.x, this.position.y, -this.position.z)
     this.obj3d = obj
   }
-  destroy () {
+
+  get rotation () {
+    throw new Error('wip')
   }
 }

@@ -9,19 +9,20 @@ export default class PlaneElement extends OMLElement {
   /**
    * @constructor
    * @param {OMLDataObject} OML
-   * @param {Object} property
+   * @param {String} version
+   * @param {Object} define
    */
-  constructor (OML, property) {
-    super(OML, property, 2)
+  constructor (OML, version, define) {
+    super(OML, version, define, 2)
     const obj = new THREE.Group()
-    const cube = new THREE.Mesh(
-      new THREE.PlaneGeometry(OML._size[0], OML._size[1]),
-      new THREE.MeshPhongMaterial({color: OML._color})
+    const plane = new THREE.Mesh(
+      new THREE.PlaneGeometry(this.size[0], this.size[1]),
+      new THREE.MeshPhongMaterial({color: this.color})
     )
-    cube.rotation.set(-Math.PI / 2, 0, 0)
-    cube.castShadow = true
-    cube.receiveShadow = true
-    obj.add(cube)
-    super._addObj(obj)
+    plane.rotation.set(-Math.PI / 2, 0, 0)
+    plane.castShadow = true
+    plane.receiveShadow = true
+    obj.add(plane)
+    super._setObj(obj)
   }
 }

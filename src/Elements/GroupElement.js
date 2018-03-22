@@ -9,25 +9,19 @@ export default class GroupElement extends OMLElement {
   /**
    * @constructor
    * @param {OMLDataObject} OML
-   * @param {Object} property
+   * @param {String} version
+   * @param {Object} define
    */
-  constructor (OML, property, createElement) {
-    super(OML, property)
+  constructor (OML, version, define, createElement) {
+    super(OML, version, define)
     const group = new THREE.Group()
-    this.objs = []
-    super._addObj(group)
+    super._setObj(group)
 
     for (let childOML of OML.group) {
-      const element = createElement(childOML, {
-        define: this.property.define,
-        version: this.property.version
-      })
-      this.objs.push(element)
-      group.add(element.obj3d)
+      const element = createElement(childOML, this._version, this._define)
+      if (element) {
+        group.add(element.obj3d)
+      }
     }
-  }
-  destroy () {
-    super.destroy()
-    this.objs.forEach((obj) => obj.destroy())
   }
 }
