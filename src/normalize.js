@@ -1,23 +1,26 @@
+import Vector3 from './Structs/Vector3'
+import Quaternion from './Structs/Quaternion'
+
 /**
  * normalizeRot
  * @param {Array.<(string|number)>} rot
- * @returns {Array.<number>}
+ * @returns {Quaternion}
  */
 export function normalizeRot (rot) {
   if (Array.isArray(rot)) {
     if (rot.length < 4) {
-      return [
+      return Quaternion._fromEuler(
         normalizeRotNumber(rot[0]),
         normalizeRotNumber(rot[1]),
         normalizeRotNumber(rot[2])
-      ]
+      )
     } else {
-      return [
+      return new Quaternion(
         normalizeRotNumber(rot[0]),
         normalizeRotNumber(rot[1]),
         normalizeRotNumber(rot[2]),
         normalizeRotNumber(rot[3])
-      ]
+      )
     }
   } else {
     return normalizeRot([0, 0, 0])
@@ -43,15 +46,15 @@ function normalizeRotNumber (rot) {
 /**
  * normalizeScale
  * @param {Array.<(string|number)>} scale
- * @returns {Array.<number>}
+ * @returns {Vector3}
  */
 export function normalizeScale (scale) {
   if (Array.isArray(scale)) {
-    return [
+    return new Vector3(
       normalizeScaleNumber(scale[0]),
       normalizeScaleNumber(scale[1]),
       normalizeScaleNumber(scale[2])
-    ]
+    )
   } else {
     return normalizeScale([1, 1, 1])
   }
@@ -79,11 +82,11 @@ function normalizeScaleNumber (scale) {
  */
 export function normalizePos (pos) {
   if (Array.isArray(pos)) {
-    return [
+    return new Vector3(
       normalizePosNumber(pos[0]),
       normalizePosNumber(pos[1]),
       normalizePosNumber(pos[2])
-    ]
+    )
   } else {
     return normalizePos([0, 0, 0])
   }
@@ -119,7 +122,8 @@ export function normalizeSize (size, length) {
     return result
   } else {
     return normalizeSize(
-      [...Array(length)].map(() => 1)
+      [...Array(length)].map(() => 1),
+      length
     )
   }
 }

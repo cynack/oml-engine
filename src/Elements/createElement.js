@@ -7,26 +7,27 @@ import PlaneElement from './PlaneElement'
 /**
  * createElement
  * @param {OMLDataObject} OML
- * @param {Object} property
+ * @param {String} version
+ * @param {Object} define
  * @returns {OMLElement}
  */
-export default function createElement (OML, property = {define: {}}) {
+export default function createElement (OML, version, define = {}) {
   if (OML.group) {
-    return new GroupElement(OML, property, createElement)
+    return new GroupElement(OML, version, define, createElement)
   } else if (OML.component) {
-    if (Object.keys(property.define).indexOf(OML.component) === -1) {
+    if (Object.keys(define).indexOf(OML.component) === -1) {
       switch (OML.component) {
         case '@cube': {
-          return new CubeElement(OML, property)
+          return new CubeElement(OML, version, define)
         }
         case '@cylinder': {
-          return new CylinderElement(OML, property)
+          return new CylinderElement(OML, version, define)
         }
         case '@sphere': {
-          return new SphereElement(OML, property)
+          return new SphereElement(OML, version, define)
         }
         case '@plane': {
-          return new PlaneElement(OML, property)
+          return new PlaneElement(OML, version, define)
         }
         case '@model': {
           console.error(new Error('not implemented'))
@@ -38,19 +39,20 @@ export default function createElement (OML, property = {define: {}}) {
         }
         case '@light': {
           console.error(new Error('not implemented'))
+          return
+        }
+        default: {
+          console.error(new Error(`not found ${OML.component}`))
         }
       }
     } else {
-      const _OML = Object.assign({}, property.define[OML.component])
+      const _OML = Object.assign({}, define[OML.component])
       for (let key in OML) {
         if (key !== OML.component) {
           _OML[key] = OML[key]
         }
       }
-      return createElement(
-        _OML,
-        property
-      )
+      return createElement(_OML, version, define)
     }
   }
 }

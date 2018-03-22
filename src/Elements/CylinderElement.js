@@ -9,14 +9,15 @@ export default class CylinderElement extends OMLElement {
   /**
    * @constructor
    * @param {OMLDataObject} OML
-   * @param {Object} property
+   * @param {String} version
+   * @param {Object} define
    */
-  constructor (OML, property) {
-    super(OML, property, 2)
+  constructor (OML, version, define) {
+    super(OML, version, define, 2)
     const obj = new THREE.Mesh(
-      new THREE.CylinderGeometry(this.OML._size[0] / 2, this.OML._size[0] / 2, this.OML._size[1], 50),
-      new THREE.MeshPhongMaterial({color: this.OML._color})
+      new THREE.CylinderGeometry(this.size[0] / 2, this.size[0] / 2, this.size[1], 50),
+      new THREE.MeshPhongMaterial({color: this.color})
     )
-    super._addObj(obj)
+    super._setObj(obj)
   }
 }

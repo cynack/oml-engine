@@ -9,14 +9,15 @@ export default class CubeElement extends OMLElement {
   /**
    * @constructor
    * @param {OMLDataObject} OML
-   * @param {Object} property
+   * @param {String} version
+   * @param {Object} define
    */
-  constructor (OML, property) {
-    super(OML, property, 3)
+  constructor (OML, version, define) {
+    super(OML, version, define, 3)
     const obj = new THREE.Mesh(
-      new THREE.CubeGeometry(OML._size[0], OML._size[1], OML._size[2]),
-      new THREE.MeshPhongMaterial({color: OML._color})
+      new THREE.CubeGeometry(this.size[0], this.size[1], this.size[2]),
+      new THREE.MeshPhongMaterial({color: this.color})
     )
-    super._addObj(obj)
+    super._setObj(obj)
   }
 }
